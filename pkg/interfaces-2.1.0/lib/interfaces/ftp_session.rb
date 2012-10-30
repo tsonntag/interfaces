@@ -6,7 +6,7 @@ module Interfaces
   module FtpSession
     def validate
       super
-      validate_presence_of :host, :user, :password,:remote_dir
+      validate_presence_of :host, :user, :remote_dir
     end
 
     def session

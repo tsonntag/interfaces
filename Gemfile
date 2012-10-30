@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'activesupport', '~> 3.2.8'
 gem 'zip'
+gem 'net-sftp'
 
 group :development do
   gem 'guard'

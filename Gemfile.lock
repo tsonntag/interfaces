@@ -3,6 +3,7 @@ PATH
   specs:
     interfaces (2.2.0)
       activesupport (~> 3.2.8)
+      net-sftp
       zip
 
 GEM
@@ -24,6 +25,9 @@ GEM
     lumberjack (1.0.2)
     method_source (0.8.1)
     multi_json (1.3.6)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.6.1)
     pry (0.9.10)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -40,4 +44,5 @@ DEPENDENCIES
   guard
   guard-minitest
   interfaces!
+  net-sftp
   zip

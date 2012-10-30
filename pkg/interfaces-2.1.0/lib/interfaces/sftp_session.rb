@@ -5,7 +5,7 @@ module Interfaces
   module SftpSession
     def validate
       super
-      validate_presence_of :host, :user, :password
+      validate_presence_of :host, :user
     end
 
 =begin
