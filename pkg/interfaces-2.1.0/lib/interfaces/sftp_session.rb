@@ -25,7 +25,9 @@ module Interfaces
       if respond_to?(:port) && port
         opts[:port] = port 
       end
-      opts[:password] = password if password
+      if respond_to?(:password) && password
+        opts[:password] = password 
+      end
       Net::SSH.start(host, user, opts) do |ssh|
         ssh.sftp.connect do |sftp|
           logger.debug{"#{self}: entering sftp session on #{host}, user #{user}"}
