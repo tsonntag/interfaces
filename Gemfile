@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'active_support'
+gem 'activesupport', '~> 3.2.8'
 gem 'zip'
 
 group :development do

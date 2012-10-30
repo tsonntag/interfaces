@@ -22,7 +22,9 @@ module Interfaces
     def session
       logger.debug{"#{self}: about to sftp login on #{host}, user #{user}"}
       opts = {}
-      opts[:port] = port if port
+      if respond_to?(:port) && port
+        opts[:port] = port 
+      end
       opts[:password] = password if password
       Net::SSH.start(host, user, opts) do |ssh|
         ssh.sftp.connect do |sftp|
