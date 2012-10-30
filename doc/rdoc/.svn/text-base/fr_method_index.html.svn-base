@@ -1,0 +1,88 @@
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Methods
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Methods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Methods</h1>
+  <div id="index-entries">
+    <a href="classes/Interfaces/Base.html#M000046">[] (Interfaces::Base)</a><br />
+    <a href="classes/Interfaces/PgpDecryptFilter.html#M000031">available_files (Interfaces::PgpDecryptFilter)</a><br />
+    <a href="classes/Interfaces/UnzipFilter.html#M000006">available_files (Interfaces::UnzipFilter)</a><br />
+    <a href="classes/Interfaces/Builder.html#M000034">build (Interfaces::Builder)</a><br />
+    <a href="classes/Interfaces/Interface.html#M000013">call (Interfaces::Interface)</a><br />
+    <a href="classes/Interfaces/PgpEncryptFilter.html#M000020">cmd (Interfaces::PgpEncryptFilter)</a><br />
+    <a href="classes/Interfaces/PgpDecryptFilter.html#M000033">cmd (Interfaces::PgpDecryptFilter)</a><br />
+    <a href="classes/Interfaces/Builder.html#M000037">create_interface (Interfaces::Builder)</a><br />
+    <a href="classes/Interfaces/Builder.html#M000038">create_proc (Interfaces::Builder)</a><br />
+    <a href="classes/Interfaces/CmdFilter.html#M000051">do_filter_file (Interfaces::CmdFilter)</a><br />
+    <a href="classes/Interfaces/ZipFilter.html#M000022">do_filter_files (Interfaces::ZipFilter)</a><br />
+    <a href="classes/Interfaces/Filter.html#M000041">do_filter_files (Interfaces::Filter)</a><br />
+    <a href="classes/Interfaces/MailSink.html#M000061">do_put_files (Interfaces::MailSink)</a><br />
+    <a href="classes/Interfaces/DirSink.html#M000010">do_put_files (Interfaces::DirSink)</a><br />
+    <a href="classes/Interfaces/FtpSinkBase.html#M000053">do_put_files (Interfaces::FtpSinkBase)</a><br />
+    <a href="classes/Interfaces/Filter.html#M000042">filter_file (Interfaces::Filter)</a><br />
+    <a href="classes/Interfaces/UnzipFilter.html#M000007">filter_file (Interfaces::UnzipFilter)</a><br />
+    <a href="classes/Interfaces/Filter.html#M000040">filter_files (Interfaces::Filter)</a><br />
+    <a href="classes/Interfaces/SftpSource.html#M000008">ftp_get_files (Interfaces::SftpSource)</a><br />
+    <a href="classes/Interfaces/FtpSource.html#M000057">ftp_get_files (Interfaces::FtpSource)</a><br />
+    <a href="classes/Interfaces/FtpSink.html#M000009">ftp_put (Interfaces::FtpSink)</a><br />
+    <a href="classes/Interfaces/SftpSink.html#M000017">ftp_put (Interfaces::SftpSink)</a><br />
+    <a href="classes/Interfaces/Source.html#M000026">get_files (Interfaces::Source)</a><br />
+    <a href="classes/Interfaces/Source.html#M000027">get_local_files (Interfaces::Source)</a><br />
+    <a href="classes/Interfaces/FtpSourceBase.html#M000015">get_remote_files (Interfaces::FtpSourceBase)</a><br />
+    <a href="classes/Interfaces/Source.html#M000028">get_remote_files (Interfaces::Source)</a><br />
+    <a href="classes/Interfaces/MailSource.html#M000056">get_remote_files (Interfaces::MailSource)</a><br />
+    <a href="classes/Interfaces/Source.html#M000025">mark_done? (Interfaces::Source)</a><br />
+    <a href="classes/Interfaces/Source.html#M000024">matches? (Interfaces::Source)</a><br />
+    <a href="classes/Interfaces/Mailer.html#M000039">message (Interfaces::Mailer)</a><br />
+    <a href="classes/Interfaces/Builder.html#M000036">method_missing (Interfaces::Builder)</a><br />
+    <a href="classes/Interfaces/Base.html#M000045">method_missing (Interfaces::Base)</a><br />
+    <a href="classes/Dir.html#M000001">mktmpdir (Dir)</a><br />
+    <a href="classes/Interfaces/Interface.html#M000012">new (Interfaces::Interface)</a><br />
+    <a href="classes/Interfaces/Builder.html#M000035">new (Interfaces::Builder)</a><br />
+    <a href="classes/Interfaces/Base.html#M000043">new (Interfaces::Base)</a><br />
+    <a href="classes/Interfaces/Sink.html#M000059">put_files (Interfaces::Sink)</a><br />
+    <a href="classes/Interfaces/FtpSession.html#M000003">session (Interfaces::FtpSession)</a><br />
+    <a href="classes/Interfaces/SftpSession.html#M000005">session (Interfaces::SftpSession)</a><br />
+    <a href="classes/Interfaces/PgpEncryptFilter.html#M000019">target_path (Interfaces::PgpEncryptFilter)</a><br />
+    <a href="classes/Interfaces/PgpDecryptFilter.html#M000032">target_path (Interfaces::PgpDecryptFilter)</a><br />
+    <a href="classes/Interfaces/Base.html#M000047">to_s (Interfaces::Base)</a><br />
+    <a href="classes/Interfaces/Source.html#M000029">to_s (Interfaces::Source)</a><br />
+    <a href="classes/Interfaces/MailSink.html#M000062">to_s (Interfaces::MailSink)</a><br />
+    <a href="classes/Interfaces/DirSink.html#M000011">to_s (Interfaces::DirSink)</a><br />
+    <a href="classes/Interfaces/FtpSinkBase.html#M000054">to_s (Interfaces::FtpSinkBase)</a><br />
+    <a href="classes/Interfaces/FtpSourceBase.html#M000016">to_s (Interfaces::FtpSourceBase)</a><br />
+    <a href="classes/Interfaces/Base.html#M000048">untmp_pathes (Interfaces::Base)</a><br />
+    <a href="classes/Interfaces/MailSource.html#M000055">validate (Interfaces::MailSource)</a><br />
+    <a href="classes/Interfaces/CmdFilter.html#M000050">validate (Interfaces::CmdFilter)</a><br />
+    <a href="classes/Interfaces/PgpEncryptFilter.html#M000018">validate (Interfaces::PgpEncryptFilter)</a><br />
+    <a href="classes/Interfaces/FtpSinkBase.html#M000052">validate (Interfaces::FtpSinkBase)</a><br />
+    <a href="classes/Interfaces/PgpDecryptFilter.html#M000030">validate (Interfaces::PgpDecryptFilter)</a><br />
+    <a href="classes/Interfaces/ZipFilter.html#M000021">validate (Interfaces::ZipFilter)</a><br />
+    <a href="classes/Interfaces/Base.html#M000044">validate (Interfaces::Base)</a><br />
+    <a href="classes/Interfaces/FtpSession.html#M000002">validate (Interfaces::FtpSession)</a><br />
+    <a href="classes/Interfaces/Source.html#M000023">validate (Interfaces::Source)</a><br />
+    <a href="classes/Interfaces/Sink.html#M000058">validate (Interfaces::Sink)</a><br />
+    <a href="classes/Interfaces/SftpSession.html#M000004">validate (Interfaces::SftpSession)</a><br />
+    <a href="classes/Interfaces/MailSink.html#M000060">validate (Interfaces::MailSink)</a><br />
+    <a href="classes/Interfaces/FtpSourceBase.html#M000014">validate (Interfaces::FtpSourceBase)</a><br />
+    <a href="classes/Interfaces/Base.html#M000049">validate_presence_of (Interfaces::Base)</a><br />
+  </div>
+</div>
+</body>
+</html>

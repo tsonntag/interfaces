@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Interfaces</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Interfaces</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/interfaces/base_rb.html">
+                lib/interfaces/base.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/builder_rb.html">
+                lib/interfaces/builder.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/cmd_filter_rb.html">
+                lib/interfaces/cmd_filter.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/dir_sink_rb.html">
+                lib/interfaces/dir_sink.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/dir_source_rb.html">
+                lib/interfaces/dir_source.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/filter_rb.html">
+                lib/interfaces/filter.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/ftp_session_rb.html">
+                lib/interfaces/ftp_session.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/ftp_sink_rb.html">
+                lib/interfaces/ftp_sink.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/ftp_sink_base_rb.html">
+                lib/interfaces/ftp_sink_base.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/ftp_source_rb.html">
+                lib/interfaces/ftp_source.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/ftp_source_base_rb.html">
+                lib/interfaces/ftp_source_base.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/interface_rb.html">
+                lib/interfaces/interface.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/mail_sink_rb.html">
+                lib/interfaces/mail_sink.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/mail_source_rb.html">
+                lib/interfaces/mail_source.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/pgp_decrypt_filter_rb.html">
+                lib/interfaces/pgp_decrypt_filter.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/pgp_encrypt_filter_rb.html">
+                lib/interfaces/pgp_encrypt_filter.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/sftp_session_rb.html">
+                lib/interfaces/sftp_session.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/sftp_sink_rb.html">
+                lib/interfaces/sftp_sink.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/sftp_source_rb.html">
+                lib/interfaces/sftp_source.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/sink_rb.html">
+                lib/interfaces/sink.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/source_rb.html">
+                lib/interfaces/source.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/unzip_filter_rb.html">
+                lib/interfaces/unzip_filter.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces/zip_filter_rb.html">
+                lib/interfaces/zip_filter.rb
+                </a>
+        <br />
+                <a href="../files/lib/interfaces_rb.html">
+                lib/interfaces.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Interfaces/FtpSession.html" class="link">Interfaces::FtpSession</a><br />
+Module <a href="Interfaces/SftpSession.html" class="link">Interfaces::SftpSession</a><br />
+Class <a href="Interfaces/Base.html" class="link">Interfaces::Base</a><br />
+Class <a href="Interfaces/Builder.html" class="link">Interfaces::Builder</a><br />
+Class <a href="Interfaces/CmdFilter.html" class="link">Interfaces::CmdFilter</a><br />
+Class <a href="Interfaces/CmdFilterError.html" class="link">Interfaces::CmdFilterError</a><br />
+Class <a href="Interfaces/DirSink.html" class="link">Interfaces::DirSink</a><br />
+Class <a href="Interfaces/DirSource.html" class="link">Interfaces::DirSource</a><br />
+Class <a href="Interfaces/Filter.html" class="link">Interfaces::Filter</a><br />
+Class <a href="Interfaces/FtpSink.html" class="link">Interfaces::FtpSink</a><br />
+Class <a href="Interfaces/FtpSinkBase.html" class="link">Interfaces::FtpSinkBase</a><br />
+Class <a href="Interfaces/FtpSource.html" class="link">Interfaces::FtpSource</a><br />
+Class <a href="Interfaces/FtpSourceBase.html" class="link">Interfaces::FtpSourceBase</a><br />
+Class <a href="Interfaces/Interface.html" class="link">Interfaces::Interface</a><br />
+Class <a href="Interfaces/InterfaceError.html" class="link">Interfaces::InterfaceError</a><br />
+Class <a href="Interfaces/MailSenderError.html" class="link">Interfaces::MailSenderError</a><br />
+Class <a href="Interfaces/MailSink.html" class="link">Interfaces::MailSink</a><br />
+Class <a href="Interfaces/MailSource.html" class="link">Interfaces::MailSource</a><br />
+Class <a href="Interfaces/Mailer.html" class="link">Interfaces::Mailer</a><br />
+Class <a href="Interfaces/PgpDecryptFilter.html" class="link">Interfaces::PgpDecryptFilter</a><br />
+Class <a href="Interfaces/PgpEncryptFilter.html" class="link">Interfaces::PgpEncryptFilter</a><br />
+Class <a href="Interfaces/SftpSink.html" class="link">Interfaces::SftpSink</a><br />
+Class <a href="Interfaces/SftpSource.html" class="link">Interfaces::SftpSource</a><br />
+Class <a href="Interfaces/Sink.html" class="link">Interfaces::Sink</a><br />
+Class <a href="Interfaces/Source.html" class="link">Interfaces::Source</a><br />
+Class <a href="Interfaces/UnzipFilter.html" class="link">Interfaces::UnzipFilter</a><br />
+Class <a href="Interfaces/ZipFilter.html" class="link">Interfaces::ZipFilter</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VERSION</td>
+          <td>=</td>
+          <td class="context-item-value">'0.0.1'</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
