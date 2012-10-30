@@ -1,9 +1,0 @@
-== interfaces
-
-Defines _sources_, _sinks_ and _filters_ for file pathes
-
-Pathes may be 'generated' by a _source_,
-may be filtered through a _filter_
-and may be put to a _sink_
-
-An Interface defines a chain of _source_, _filters_ and _sink_.
