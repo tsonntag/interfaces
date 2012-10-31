@@ -14,9 +14,9 @@ module Interfaces
     attribute :password_hider, default: PasswordHider.new
 
     def initialize args = {}
-      logger = args.delete(:logger){Logger.new(STDOUT)}
+      self.logger = args.delete(:logger){Logger.new(STDOUT)}
       super
-      raise ArgumentError, "#{errors.full_message}" unless valid? 
+      raise ArgumentError, "#{errors.full_messages}" unless valid? 
     end
 
     def dup _attributes={}
