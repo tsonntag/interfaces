@@ -3,8 +3,6 @@ module Interfaces
 
   # subclasses must implement #cmd(path)
   class CmdFilter < Filter
-    attribute :cmd
-    validates_presence_of :cmd
 
     def do_filter_file path
       command = cmd path
