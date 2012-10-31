@@ -1,16 +1,9 @@
-require 'interfaces/sftp_session'
-require 'interfaces/ftp_source_base'
-require 'interfaces/utils'
-
 module Interfaces
 
   class SftpSource < FtpSourceBase
     include SftpSession
 
     def ftp_get_files sftp, regexp
-      require 'ruby-debug'
-      debugger
-
       logger.debug{"#{self}: sftp: about to list entries in #{remote_dir}"}
       files = []
       sftp.dir.entries(remote_dir).each do |entry|

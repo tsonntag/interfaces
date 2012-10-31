@@ -1,5 +1,3 @@
-require 'interfaces/sink'
-
 module Interfaces
   # Base class for ftp sinks
   #
@@ -9,6 +7,9 @@ module Interfaces
   # #session which must yield the _session_
   #
   class FtpSinkBase < Sink
+    attribute :host
+    attribute :remote_dir
+    validates_presence_of :remote_dir, :host
 
     def do_put_files pathes
       session do |session|

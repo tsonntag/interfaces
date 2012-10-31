@@ -1,5 +1,3 @@
-require 'interfaces/source'
-
 module Interfaces
 
   # Base class for remote sources.

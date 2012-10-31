@@ -1,12 +1,13 @@
 require 'net/ftp'
-require 'interfaces/ftp_session'
 
 module Interfaces
 
   module FtpSession
-    def validate
-      super
-      validate_presence_of :host, :user, :remote_dir
+
+    def self.included base
+      base.send :attribute,:user
+      base.send :attribute,:password
+      base.send :validates_presence_of, :user, :password
     end
 
     def session

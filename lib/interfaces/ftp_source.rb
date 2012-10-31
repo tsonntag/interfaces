@@ -1,7 +1,4 @@
 require 'fileutils'
-require 'interfaces/ftp_source_base'
-require 'interfaces/ftp_session'
-require 'interfaces/utils'
 
 module Interfaces
 

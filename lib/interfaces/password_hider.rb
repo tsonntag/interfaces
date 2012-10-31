@@ -4,19 +4,19 @@ require 'rexml/text'
 module Interfaces
   class PasswordHider
     
-    def initialize( marker = 'PPASSSSWWOORRDD', hidden = 'HIDDEN')
+    def initialize marker = 'PPASSSSWWOORRDD', hidden = 'HIDDEN'
       @marker, @hidden = marker, hidden
     end
 
-    def hide(s,hidden=nil)
+    def hide s, hidden=nil
       replace(s){hidden||@hidden}
     end
 
-    def unmask(s)
+    def unmask s
       replace(s){|el|el.text}
     end
 
-    def mask(s)
+    def mask s
       doc = REXML::Document.new
       el = REXML::Element.new @marker
       el.text = s
@@ -25,7 +25,7 @@ module Interfaces
     end
 
     private
-    def replace(s)
+    def replace s
       doc = REXML::Document.new("<ROOT>#{s}</ROOT>")
       doc.elements["/ROOT"].each_element(@marker) do |el|
         el.parent.replace_child(el, REXML::Text.new(yield el))

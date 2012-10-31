@@ -1,17 +1,12 @@
-require 'interfaces/filter'
-require 'interfaces/utils'
 require 'zip/zip'
 
 module Interfaces
-
   class ZipFilter < Filter
 
-    def validate
-      super
-      validate_presence_of :zip_filename
-    end
+    attribute :zip_filename
+    validates_presence_of :zip_filename
 
-    def do_filter_files(pathes)
+    def do_filter_files pathes
       dir = File.dirname pathes.first
       target_path = File.join dir, zip_filename
       Zip::ZipOutputStream.open(target_path) do |zos|

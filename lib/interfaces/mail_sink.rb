@@ -1,6 +1,4 @@
 require 'action_mailer'
-require 'interfaces/sink'
-require 'interfaces/utils'
 
 module Interfaces
   class MailSenderError < StandardError; end
@@ -73,20 +71,27 @@ module Interfaces
   #
   class MailSink < Sink
 
-    def initialize(params={})
-      super
-      # set logger to nil to avoid dumping of whole mails
-      Mailer.logger = nil
-    end
-    
-    def validate
-      super
-      validate_presence_of(:from, :recipients, :subject)
-      [:address, :port, :domain].each{|key|  validate_presence_of(key) unless Mailer.smtp_settings[key]}
+    Mailer.logger = nil
+
+    attribute :from
+    attribute :recipients
+    attribute :subject
+    attribute :address
+    attribute :port
+    attribute :domain
+
+    validates_presence_of :from, :recipients, :subject
+
+    validate do |sink|
+      [:address, :port, :domain].each do |key| 
+        unless Mailer.smtp_settings[key] || sink.send(key)
+          sink.errors.add :base, "missing #{key}"
+        end
+      end 
     end
 
-    def do_put_files(pathes)
-      Mailer.my_message( pathes, params ).deliver
+    def do_put_files pathes
+      Mailer.my_message(pathes, params).deliver
       []
     end
 

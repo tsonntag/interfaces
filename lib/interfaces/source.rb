@@ -1,6 +1,3 @@
-require 'interfaces/base'
-require 'interfaces/utils'
-
 module Interfaces
 
   # Abstract class for sources.
@@ -16,10 +13,8 @@ module Interfaces
   # By default files ending with .err, .old, .tmp are omitted
   class Source < Base
 
-    def validate
-      super
-      validate_presence_of :dir
-    end
+    attribute :dir
+    validates_presence_of :dir
 
     def mark_done?
       params.fetch :mark_done, true

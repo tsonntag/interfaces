@@ -1,5 +1,4 @@
 require 'interfaces/mktmpdir'
-require 'interfaces/utils'
 require 'active_support/all'
 require 'timeout'
 require 'logger'
@@ -36,9 +35,9 @@ module Interfaces
     #
     # Options:
     #    :collect
-    #        default is false
-    #        if true  forwards all files from source to the filters
-    #        if false forwards each file from source to the filters separately
+    #        number of files to be transfered in one step
+    #        default is 1
+    #        :all means all
     #    :auto
     #        default is false
     #        if true the filters must implement #availabe_files
@@ -61,11 +60,11 @@ module Interfaces
     #        default is nil
     #        time in secs after which a timeout is raised during
     #        source.get_files and for each call of process(pathes)
-    def initialize( name, source, filters, sink, regexp, options = {})
+    def initialize name, source, filters, sink, regexp, options = {}
       options = options.dup
       @name = name
       @mark_done = options.delete(:mark_done){true}
-      @collect = options.delete(:collect){false}
+      @collect = options.delete(:collect){1}
       @auto = options.delete(:auto){false}
       @retries = options.delete(:retries){3}
       @retry_delay = options.delete(:retry_delay){1}
@@ -84,10 +83,10 @@ module Interfaces
           pathes = source.get_files regexp
         end
         
-        if collect
+        if collect == :all
           process pathes
         else
-          pathes.each {|path| process path}
+          pathes.each_slice(collect){|pathes| process pathes}
         end
       end
     end
@@ -98,8 +97,8 @@ module Interfaces
 
     private
     # if pathes are given they will be moved to .err on error
-    def with_retry(pathes=[])
-      files = Utils.basenames(pathes)
+    def with_retry pathes=[]
+      files = Utils.basenames pathes
       i_retry = 0
       begin
         logger.debug{"with_retry #{i_retry} of #{retries} with delay #{retry_delay}secs for files #{files.inspect}"}
@@ -117,14 +116,14 @@ module Interfaces
       end
     end
 
-    def with_timeout(what)
+    def with_timeout what
       logger.debug{"entering with_timeout #{what}. timeout_secs=#{timeout_secs}"}
       Timeout.timeout(timeout_secs){yield}
     rescue Timeout::Error
       raise Timeout::Error, "expired: #{what}"
     end
 
-    def init_procs(source, filters, sink)
+    def init_procs source, filters, sink
       @source, @filters, @sink = source, filters, sink
       raise ArgumentError, "#{self}: invalid source #{@source}" unless @source.respond_to? :get_files
       raise ArgumentError, "#{self}: invalid sink #{@sink}" unless @sink.respond_to? :put_files
@@ -137,7 +136,7 @@ module Interfaces
       [source,filters,sink].flatten.each{|proc|proc.logger = logger }
     end
 
-    def init_loggers(name, options)
+    def init_loggers name, options
       # log for success:
       @log_file = options.delete :log_file
       @log = Log.new @log_file if @log_file
@@ -146,11 +145,11 @@ module Interfaces
       @logger.progname = name if @logger.respond_to?(:progname=) && !@logger.progname
     end
 
-    def process(*pathes)
+    def process *pathes
       pathes = pathes.flatten
       return if pathes.empty?
 
-      notify BeforeEvent.new( self, pathes )
+      notify BeforeEvent.new(self, pathes)
       
       with_retry(pathes) do
         if auto
@@ -162,7 +161,7 @@ module Interfaces
       
     end
 
-    def process_chain(local_pathes)
+    def process_chain local_pathes
       Dir.mktmpdir do |tmp_dir|
         pathes = []
         sink_pathes = []
@@ -179,7 +178,7 @@ module Interfaces
       end
     end
 
-    def process_auto(local_pathes)
+    def process_auto local_pathes
       Dir.mktmpdir do |tmp_dir|
         target_pathes = []
         sink_pathes = []
@@ -211,14 +210,14 @@ module Interfaces
       end
     end
 
-    def success!(source_pathes, target_pathes, sink_pathes)
+    def success! source_pathes, target_pathes, sink_pathes
       return if source_pathes.empty?
       log.log( name, source_pathes, target_pathes ) if log
       mark_done! source_pathes if mark_done
       notify SuccessEvent.new( self, source_pathes, target_pathes, sink_pathes )
     end
 
-    def error!(exception, source_pathes = nil)
+    def error! exception, source_pathes = nil
       msg = Utils.exception_to_s exception
       if source_pathes && !source_pathes.empty?
         logger.error{"#{Utils.basenames(source_pathes).inspect} failed. moving files to err. #{msg}"}
@@ -229,13 +228,13 @@ module Interfaces
       notify ErrorEvent.new( self, source_pathes, msg )
     end
 
-    def mark_done!(source_pathes)
+    def mark_done! source_pathes
       unless sink.is_a?(DirSink) && sink.dir == source.dir
         Utils.move_to_old source_pathes
       end
     end
 
-    def notify(event)
+    def notify event
       changed
       notify_observers event
     rescue Exception => e

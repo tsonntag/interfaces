@@ -1,15 +1,12 @@
-require 'interfaces/filter'
 module Interfaces
   class CmdFilterError < StandardError; end
 
   # subclasses must implement #cmd(path)
   class CmdFilter < Filter
-    def validate
-      super
-      raise CmdFilterError, 'missing method :cmd' unless self.respond_to? :cmd
-    end
+    attribute :cmd
+    validates_presence_of :cmd
 
-    def do_filter_file(path)
+    def do_filter_file path
       command = cmd path
       logger.info{"#{self}: calling #{hide(command)}"}
       #unless system(command)

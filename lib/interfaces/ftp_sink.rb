@@ -1,6 +1,3 @@
-require 'interfaces/ftp_sink_base'
-require 'interfaces/ftp_session'
-
 module Interfaces
   class FtpSink < FtpSinkBase
     include FtpSession

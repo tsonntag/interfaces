@@ -1,7 +1,6 @@
-require 'interfaces/source'
-
 module Interfaces
   class DirSource < Source
+
     def do_get_files regexp
       get_local_files regexp
     end

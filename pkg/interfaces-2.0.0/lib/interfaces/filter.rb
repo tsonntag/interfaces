@@ -1,5 +1,3 @@
-require 'interfaces/base'
-
 module Interfaces
   # Base class for filters.
   #
@@ -13,7 +11,7 @@ module Interfaces
   class Filter < Base
 
     # returns the target pathes
-    def filter_files(pathes)
+    def filter_files pathes
       pathes = [pathes].flatten
       return [] if pathes.empty?
       logger.debug{"#{self}: about to filter #{pathes.inspect}"}
@@ -29,16 +27,16 @@ module Interfaces
     end
 
     protected
-    def do_filter_files(pathes)
+    def do_filter_files pathes
       pathes.map{|path|filter_file(path)}.flatten
     end
 
-    def target_pathes(pathes)
+    def target_pathes pathes
       pathes
     end
 
     # returns the processed pathes
-    def filter_file(path)
+    def filter_file path
       targets = target_pathes path
       do_filter_file path
       targets

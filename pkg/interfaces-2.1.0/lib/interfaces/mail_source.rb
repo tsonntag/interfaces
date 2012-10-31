@@ -1,7 +1,5 @@
 require 'net/imap'
 require 'timeout'
-require 'interfaces/source'
-require 'interfaces/utils'
 
 module Interfaces
   # Fetches mails with given subject from an IMAP server
@@ -14,11 +12,11 @@ module Interfaces
   # * :password IMAP password
   # * :subject
   class MailSource < RemoteSource
-
-    def validate
-      super
-      validate_presence_of(:host, :user, :password, :subject)
-    end
+    attribute :host
+    attribute :user
+    attribute :password
+    attribute :subject
+    validates_presence_of :host, :user, :password, :subject
 
     def get_remote_files
       imap = nil

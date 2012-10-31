@@ -1,14 +1,13 @@
 require 'zip/zip'
-require 'interfaces/filter'
 
 module Interfaces
   class UnzipFilter < Filter
 
-    def available_files(dir)
+    def available_files dir 
       Dir.glob File.join(dir,'*.zip')
     end
 
-    def do_filter_file(path)
+    def do_filter_file path
       logger.debug{"#{self}: about to unzip #{path}"}
       dir = File.dirname path
       Zip::ZipFile.new(path).each do |entry|
@@ -17,7 +16,7 @@ module Interfaces
       end
     end
 
-    def target_pathes(path)
+    def target_pathes path
       dir = File.dirname path
       Zip::ZipFile.new(path).map{|entry| File.join(dir,entry.name)}
     end

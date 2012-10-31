@@ -1,5 +1,3 @@
-require 'interfaces/remote_source'
-
 module Interfaces
   # Base class for ftp/sftp sources.
   #
@@ -8,14 +6,12 @@ module Interfaces
   # * #session which must yield the _session_
   #
   # Required params:
-  # * :remote_dir
+  # * :remote_dir and :host
   #
   class FtpSourceBase < RemoteSource
-
-    def validate
-      super
-      validate_presence_of :remote_dir
-    end
+    attribute :remote_dir
+    attribute :host
+    validates_presence_of :remote_dir, :host
 
     def get_remote_files regexp
       session do |session|

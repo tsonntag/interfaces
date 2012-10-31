@@ -1,13 +1,10 @@
-require 'interfaces/base'
-require 'interfaces/utils'
-
 module Interfaces
   # Base class for sinks.
   # Subclasses must implement #do_put_files(pathes)
   class Sink < Base
 
     # returns target_pathes
-    def put_files(pathes)
+    def put_files pathes
       pathes = [pathes].flatten
       return if pathes.empty?
       logger.debug{"#{self}: about to put files #{pathes.inspect}"}

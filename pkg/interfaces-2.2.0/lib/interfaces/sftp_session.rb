@@ -3,31 +3,18 @@ require 'net/sftp'
 module Interfaces
 
   module SftpSession
-    def validate
-      super
-      validate_presence_of :host, :user
+    def self.included base
+      base.send :attribute, :user
+      base.send :attribute, :port
+      base.send :attribute, :password
+      base.send :validates_presence_of, :user
     end
-
-=begin
-    def session
-      logger.debug{"#{self}: about to sftp login on #{host}, user #{user}"}
-      Net::SFTP.start(host, user, :password => password) do |sftp|
-        logger.debug{"#{self}: entering sftp session on #{host}, user #{user}"}
-        yield sftp
-        logger.debug{"#{self}: exiting  sftp session on #{host}, user #{user}"}
-      end
-    end
-=end
 
     def session
       logger.debug{"#{self}: about to sftp login on #{host}, user #{user}"}
       opts = {}
-      if respond_to?(:port) && port
-        opts[:port] = port 
-      end
-      if respond_to?(:password) && password
-        opts[:password] = password 
-      end
+      opts[:port] = port if port
+      opts[:password] = password if password
       Net::SSH.start(host, user, opts) do |ssh|
         ssh.sftp.connect do |sftp|
           logger.debug{"#{self}: entering sftp session on #{host}, user #{user}"}
@@ -39,6 +26,7 @@ module Interfaces
   end
 end
 
+=begin
 # patch since c1 does not accept default packet size of 0x10000
 module Net
   module SSH
@@ -54,3 +42,4 @@ module Net
     end
   end
 end
+=end
