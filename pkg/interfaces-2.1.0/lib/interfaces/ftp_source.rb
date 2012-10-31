@@ -13,7 +13,7 @@ module Interfaces
         tmp = File.join(dir, name + '.tmp')
         logger.debug{"#{self}: ftp get: #{name} => #{tmp}"}
         ftp.get name, tmp
-        if mark_done?
+        if mark_done
           logger.debug{"#{self}: ftp move to old: #{name}"}
           ftp.rename(name, name + '.old')
         end

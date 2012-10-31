@@ -91,7 +91,7 @@ module Interfaces
     end
 
     def do_put_files pathes
-      Mailer.my_message(pathes, params).deliver
+      Mailer.my_message(pathes, attributes).deliver
       []
     end
 

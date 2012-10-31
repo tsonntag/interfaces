@@ -2,7 +2,6 @@ require 'zip/zip'
 
 module Interfaces
   class ZipFilter < Filter
-
     attribute :zip_filename
     validates_presence_of :zip_filename
 

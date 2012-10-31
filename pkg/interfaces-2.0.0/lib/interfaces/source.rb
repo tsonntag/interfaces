@@ -14,11 +14,8 @@ module Interfaces
   class Source < Base
 
     attribute :dir
+    attribute :mark_done, default: true
     validates_presence_of :dir
-
-    def mark_done?
-      params.fetch :mark_done, true
-    end
 
     def get_files regexp 
       logger.debug{"#{self}: about to get files #{regexp}"}

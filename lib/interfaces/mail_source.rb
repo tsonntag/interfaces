@@ -51,11 +51,11 @@ module Interfaces
         filenames = Utils.untmp_pathes tmpfiles
         logger.debug{"#{self}: fetched from msg #{seq} filenames: #{filenames.inspect} "}
 
-        mark_done imap, seq if mark_done? #unless filenames.empty?
+        mark_as_done imap, seq if mark_done #unless filenames.empty?
       end
     end
 
-    def fetch_part( imap, seq, part, i = nil)
+    def fetch_part imap, seq, part, i = nil
       logger.debug{"#{self}: about to fetch part #{seq}. mulitipart=#{part.multipart?}"}
       if part.multipart?
         j = 1
@@ -87,11 +87,11 @@ module Interfaces
       [tmpfile]
     end
 
-    def fetch_attr( imap, seq, key)
+    def fetch_attr imap, seq, key
       imap.fetch(seq, [key]).first.attr[key]
     end
 
-    def mark_done( imap, seq )
+    def mark_as_done imap, seq
       imap.copy seq, "INBOX.processed"
       imap.store seq, "+FLAGS", [:Deleted]
       logger.debug{"#{self}: moved msg #{seq} to processed"}

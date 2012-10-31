@@ -5,7 +5,6 @@ require 'timeout'
 module Interfaces
 
   # Base class for sources, sinks and filters.
-  # Basically provides access to params, which is a Hash.
   # Default keys for params are :logger and :password_hider
   class Base
     include ActiveAttr::Model
@@ -14,9 +13,9 @@ module Interfaces
 
     attribute :password_hider, default: PasswordHider.new
 
-    def initialize args = nil
+    def initialize args = {}
+      logger = args.delete(:logger){Logger.new(STDOUT)}
       super
-      self.class.logger = Logger.new(STDOUT) unless self.class.logger?
       raise ArgumentError, "#{errors.full_message}" unless valid? 
     end
 

@@ -18,9 +18,9 @@ module Interfaces
       files.map do |filename, remote_path, tmp|
         logger.debug{"#{self}: sftp get: #{filename} => #{tmp}"}
         sftp.download! remote_path, tmp 
-        if mark_done?
+        if mark_done
           logger.debug{"#{self}: sftp move to old: #{filename}"}
-          sftp.rename remote_path, "#{remote_path}.old"
+          sftp.rename! remote_path, "#{remote_path}.old"
         end
         Utils.untmp_pathes tmp
         filename

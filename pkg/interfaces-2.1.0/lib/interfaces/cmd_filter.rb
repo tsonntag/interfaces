@@ -4,6 +4,14 @@ module Interfaces
   # subclasses must implement #cmd(path)
   class CmdFilter < Filter
 
+    validate do |filter|
+      begin 
+        filter.cmd('test')
+      rescue Exception => e
+        filter.errors.add :base, "#{self}: invalid cmd. #{e}"
+      end
+    end
+
     def do_filter_file path
       command = cmd path
       logger.info{"#{self}: calling #{hide(command)}"}
