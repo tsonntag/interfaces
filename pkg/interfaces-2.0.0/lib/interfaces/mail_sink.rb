@@ -1,4 +1,5 @@
 require 'action_mailer'
+require 'active_support/core_ext/hash' # for slice
 
 module Interfaces
   class MailSenderError < StandardError; end
@@ -91,7 +92,8 @@ module Interfaces
     end
 
     def do_put_files pathes
-      Mailer.my_message(pathes, attributes).deliver
+      # slice required. otherwise things like password_hider will cause an error
+      Mailer.my_message(pathes, attributes.slice(:from,:recipients,:subject,:address,:port,:domain).deliver
       []
     end
 

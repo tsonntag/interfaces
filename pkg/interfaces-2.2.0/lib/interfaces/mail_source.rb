@@ -36,7 +36,7 @@ module Interfaces
 
     private
 
-    def fetch( imap )
+    def fetch imap
       imap.authenticate('LOGIN', user, password)
       imap.select('INBOX')
       logger.debug{"#{self}: about to search subject #{subject}"}
