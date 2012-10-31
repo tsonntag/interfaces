@@ -2,9 +2,13 @@ module Interfaces
   class ZipEncryptFilter < CmdFilter
     attribute :zip_encrypt_cmd
     validates_presence_of :zip_encrypt_cmd
-    validate do 
-      cmd('test') rescue raise ArgumentError "#{self}: invalid #{zip_encrypt_cmd}"
+    validate do |filter|
+      filter.cmd('test')
+    rescue => e
+      filter.errors.add :base, "#{self}: invalid #{zip_encrypt_cmd}. #{e}"
     end
+
+
 
     def target_pathes path
       "#{path}.zip"

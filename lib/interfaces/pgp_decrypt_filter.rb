@@ -5,8 +5,10 @@ module Interfaces
     attribute :pgp_decrypt_cmd
     validates_presence_of :pgp_decrypt_cmd
 
-    valudate do 
-      cmd('test') rescue raise ArgumentError "#{self}: invalid #{pgp_decrypt_cmd}"
+    validate do |filter|
+      filter.cmd('test') 
+    rescue => e 
+      filter.errors.add :base, "#{self}: invalid #{pgp_decrypt_cmd}. #{e}"
     end
     
     def available_files dir

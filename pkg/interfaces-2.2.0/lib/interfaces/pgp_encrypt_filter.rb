@@ -2,8 +2,10 @@ module Interfaces
   class PgpEncryptFilter < CmdFilter
     attribute :pgp_encrypt_cmd
     validates_presence_of :pgp_encrypt_cmd
-    validate do 
-      cmd('test') rescue raise ArgumentError "#{self}: invalid #{pgp_decrypt_cmd}"
+    validate do |filter|
+      filter.cmd('test') 
+    rescue => e
+      filter.errors.add :base, "#{self}: invalid #{pgp_encrypt_cmd}, #{e}"
     end
 
     def target_pathes path
