@@ -76,6 +76,8 @@ module Interfaces
 
     attribute :from
     attribute :recipients
+    attribute :cc
+    attribute :bcc
     attribute :subject
     attribute :address
     attribute :port
@@ -94,7 +96,7 @@ module Interfaces
     def do_put_files pathes
       # slice required. otherwise things like password_hider will cause an error
       #keys = Mailer.smtp_settings.keys + [:from,:recipients,:subject,:address,:port,:domain] 
-      keys = [:from,:recipients,:subject,:address,:port,:domain] 
+      keys = [:from,:recipients,:subject,:address,:port,:domain,:cc,:bcc] 
       Mailer.my_message(pathes, attributes.symbolize_keys.slice(*keys)).deliver
       []
     end
