@@ -82,6 +82,7 @@ module Interfaces
     attribute :address
     attribute :port
     attribute :domain
+    attribute :send_file_in_body
 
     validates_presence_of :from, :recipients, :subject
 
@@ -96,7 +97,7 @@ module Interfaces
     def do_put_files pathes
       # slice required. otherwise things like password_hider will cause an error
       #keys = Mailer.smtp_settings.keys + [:from,:recipients,:subject,:address,:port,:domain] 
-      keys = [:from,:recipients,:subject,:address,:port,:domain,:cc,:bcc] 
+      keys = [:from,:recipients,:subject,:address,:port,:domain,:cc,:bcc,:send_file_in_body] 
       Mailer.my_message(pathes, attributes.symbolize_keys.slice(*keys)).deliver
       []
     end
