@@ -1,4 +1,5 @@
 require 'active_attr'
+require 'activemodel'
 require 'logger'
 require 'timeout'
 
