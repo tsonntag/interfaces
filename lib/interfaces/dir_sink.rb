@@ -1,5 +1,3 @@
-require 'active_support/core_ext/hash'
-
 module Interfaces
 
   class DirSink < Sink
@@ -9,7 +7,7 @@ module Interfaces
 
     # returns target_pathes
     def do_put_files pathes
-      Utils.tmped_copy pathes, dir, attributes.slice('chmod')
+      Utils.tmped_copy pathes, dir, { chmod: self.chmod }
     end
 
     def to_s
