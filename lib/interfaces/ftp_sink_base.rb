@@ -11,7 +11,7 @@ module Interfaces
     attribute :remote_dir
     validates_presence_of :remote_dir, :host
 
-    def do_put_files pathes, opts = {}
+    def do_put_files pathes
       session do |session|
         ftp_put session, pathes
       end
