@@ -94,7 +94,7 @@ module Interfaces
       end 
     end
 
-    def do_put_files pathes
+    def do_put_files pathes, opts = {}
       # slice required. otherwise things like password_hider will cause an error
       #keys = Mailer.smtp_settings.keys + [:from,:recipients,:subject,:address,:port,:domain] 
       keys = [:from,:recipients,:subject,:address,:port,:domain,:cc,:bcc,:send_file_in_body] 

@@ -36,11 +36,13 @@ module Interfaces
       end
 
       # returns target_pathes
-      def tmped_copy(pathes,dir)
+      def tmped_copy pathes, dir, opts = {} 
+        chmod = opts[:chmod]
         tmps = [pathes].flatten.map do |path|
           file = File.basename(path)
           tmp = File.join(dir,file + '.tmp')
           FileUtils.cp path, tmp
+          File.chmod(chmod, tmp) if chmod
           tmp
         end
         untmp_pathes tmps

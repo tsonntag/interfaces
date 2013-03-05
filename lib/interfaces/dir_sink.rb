@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash'
+
 module Interfaces
 
   class DirSink < Sink

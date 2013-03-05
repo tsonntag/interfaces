@@ -4,12 +4,12 @@ module Interfaces
   class Sink < Base
 
     # returns target_pathes
-    def put_files pathes
+    def put_files pathes, opts = {}
       pathes = [pathes].flatten
       return if pathes.empty?
-      logger.debug{"#{self}: about to put files #{pathes.inspect}"}
-      sink_pathes = do_put_files pathes
-      logger.info{"#{self}: put files #{Utils.basenames(pathes).join(',')}"}
+      logger.debug{"#{self}: about to put files #{pathes.inspect}. opts=#{opts}"}
+      sink_pathes = do_put_files pathes, opts
+      logger.info{"#{self}: put files #{Utils.basenames(pathes).join(',')}, opts=#{opts}"}
       sink_pathes
     end
   end

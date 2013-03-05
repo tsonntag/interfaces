@@ -1,5 +1,5 @@
 require 'interfaces/mktmpdir'
-require 'active_support/all'
+#require 'active_support/all'
 require 'timeout'
 require 'logger'
 require 'observer'
