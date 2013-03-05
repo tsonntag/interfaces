@@ -9,7 +9,7 @@ module Interfaces
 
     # returns target_pathes
     def do_put_files pathes
-      Utils.tmped_copy pathes, dir, attributes.slice(:chmod)
+      Utils.tmped_copy pathes, dir, attributes.slice('chmod')
     end
 
     def to_s
