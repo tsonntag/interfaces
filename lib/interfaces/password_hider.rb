@@ -1,6 +1,3 @@
-require 'rexml/document'
-require 'rexml/text'
-
 module Interfaces
   class PasswordHider
     
@@ -9,29 +6,21 @@ module Interfaces
     end
 
     def hide s, hidden=nil
-      replace(s){hidden||@hidden}
+      replace s, hidden||@hidden
     end
 
     def unmask s
-      replace(s){|el|el.text}
+      replace s
     end
 
     def mask s
-      doc = REXML::Document.new
-      el = REXML::Element.new @marker
-      el.text = s
-      doc.add_element el
-      doc.to_s
+      "<#{@marker}>#{s}</#{@marker}>"
     end
 
-    private
-    def replace s
-      doc = REXML::Document.new("<ROOT>#{s}</ROOT>")
-      doc.elements["/ROOT"].each_element(@marker) do |el|
-        el.parent.replace_child(el, REXML::Text.new(yield el))
-      end
-      doc.elements["/ROOT"].children.join ""
+    private 
+    def replace s, with = '\1'
+      # ? ungreedys the *. see http://www.regular-expressions.info/repeat.html
+      s.gsub %r(<#{@marker}>(.*?)</#{@marker}>), with 
     end
-
   end
 end
