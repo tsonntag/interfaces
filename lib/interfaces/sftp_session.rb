@@ -16,11 +16,18 @@ module Interfaces
       opts[:port] = port if port
       opts[:password] = password if password
       Net::SSH.start(host, user, opts) do |ssh|
-        ssh.sftp.connect do |sftp|
-          logger.debug{"#{self}: entering sftp session on #{host}, user #{user}"}
-          yield sftp
-          logger.debug{"#{self}: exiting  sftp session on #{host}, user #{user}"}
-        end
+        # implementation before 2013-07-23
+        #ssh.sftp.connect do |sftp|
+        #  logger.debug{"#{self}: entering sftp session on #{host}, user #{user}"}
+        #  yield sftp
+        #  logger.debug{"#{self}: exiting  sftp session on #{host}, user #{user}"}
+        #end
+        sftp = ssh.sftp
+        sftp.connect! 
+        raise InterfaceError, "#{self}: sftp not open" unless sftp.open?
+        logger.debug{"#{self}: entering sftp session on #{host}, user #{user}"}
+        yield sftp
+        logger.debug{"#{self}: exiting  sftp session on #{host}, user #{user}"}
       end
     end
   end
