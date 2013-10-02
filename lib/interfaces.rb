@@ -2,8 +2,6 @@ dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 
 module Interfaces
-  VERSION = '0.0.1'
-
   require 'interfaces/event'
   
   autoload :Base,               'interfaces/base'
@@ -35,5 +33,4 @@ module Interfaces
   autoload :UnzipFilter,        'interfaces/unzip_filter'
   autoload :ZipFilter,          'interfaces/zip_filter'
   autoload :ZipEncryptFilter,   'interfaces/zip_encrypt_filter'
-  
 end
