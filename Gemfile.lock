@@ -4,7 +4,7 @@ PATH
     interfaces (2.6.0)
       active_attr
       activemodel (>= 3)
-      activesupport (>= 3)
+      activesupport (>= 3.2)
       net-sftp
       zip
 
