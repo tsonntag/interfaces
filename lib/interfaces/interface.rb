@@ -1,5 +1,4 @@
 require 'interfaces/mktmpdir'
-#require 'active_support/all'
 require 'timeout'
 require 'logger'
 require 'observer'
@@ -43,9 +42,11 @@ module Interfaces
     #        if true the filters must implement #availabe_files
     #        and are applied to the files in any order until they cannot be processed anymore.
     #        Useful for filters which 'unpack' stuff (like decrypt, unzip etc.)
-    #    :mark_done
-    #        default is true
-    #        if true moves files in dir of source to .old
+    #    :mark_done:
+    #        suffix:  move files in source to suffix 
+    #        :delete: delete files in source
+    #        else:    do nothing
+    #        default is '.old' 
     #    :logger
     #        general logger (for debug, error etc.)
     #    :log_file
@@ -63,7 +64,8 @@ module Interfaces
     def initialize name, source, filters, sink, regexp, options = {}
       options = options.dup
       @name = name
-      @mark_done = options.delete(:mark_done){true}
+      @mark_done = options.delete(:mark_done){'.old'}
+      Utils.validate_mark_done @mark_done 
       @collect = options.delete(:collect){1}
       @auto = options.delete(:auto){false}
       @retries = options.delete(:retries){3}
@@ -80,7 +82,7 @@ module Interfaces
       with_retry do
         pathes = []
         with_timeout("getting files from #{source}") do
-          pathes = source.get_files regexp
+          pathes = source.get_files regexp, mark_done
         end
         
         if collect == :all
@@ -170,7 +172,7 @@ module Interfaces
           filters.each do |filter|
             pathes = filter.filter_files pathes
           end
-          notify AfterFiltersEvent.new( self, pathes )
+          notify AfterFiltersEvent.new(self, pathes)
           sink_pathes = sink.put_files pathes
         end
         # success! is not included in the timeout
@@ -212,25 +214,31 @@ module Interfaces
 
     def success! source_pathes, target_pathes, sink_pathes
       return if source_pathes.empty?
-      log.log( name, source_pathes, target_pathes ) if log
-      mark_done! source_pathes if mark_done
-      notify SuccessEvent.new( self, source_pathes, target_pathes, sink_pathes )
+      log.log(name, source_pathes, target_pathes) if log
+      mark_done! source_pathes
+      notify SuccessEvent.new(self, source_pathes, target_pathes, sink_pathes)
     end
 
     def error! exception, source_pathes = nil
       msg = Utils.exception_to_s exception
       if source_pathes && !source_pathes.empty?
         logger.error{"#{Utils.basenames(source_pathes).inspect} failed. moving files to err. #{msg}"}
-        Utils.move_to_err source_pathes
+        Utils.move_to '.err', source_pathes
       else
         logger.error{"failed: #{msg}"}
       end
-      notify ErrorEvent.new( self, source_pathes, msg )
+      notify ErrorEvent.new(self, source_pathes, msg)
     end
 
     def mark_done! source_pathes
-      unless sink.is_a?(DirSink) && sink.dir == source.dir
-        Utils.move_to_old source_pathes
+      source.mark_done! mark_done
+      if sink.is_a?(DirSink) && sink.dir == source.dir
+        case mark_done
+        when String 
+          Utils.move_to(mark_done, source_pathes) 
+        when :delete
+          Utils.delete_files!(source_pathes)
+        end
       end
     end
 

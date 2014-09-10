@@ -3,30 +3,32 @@ require 'fileutils'
 module Interfaces
   module Utils
     class << self
-      def delete_files!(pathes)
+      def validate_mark_done mark_done
+        unless String === mark_done || :delete == mark_done || nil == mark_done || false == mark_done
+          raise Exception "invalid mark_done #{mark_done}"
+        end
+      end
+
+      def delete_files! pathes
         [pathes].flatten.each{|p|FileUtils.rm(p)}
       end
 
-      def move_to_old(pathes)
-        [pathes].flatten.each{|p|FileUtils.mv(p,"#{p}.old")}
+      def move_to suffix, pathes
+        [pathes].flatten.each{|p|FileUtils.mv(p,"#{p}#{suffix}")}
       end
 
-      def move_to_err(pathes)
-        [pathes].flatten.each{|p|FileUtils.mv(p,"#{p}.err")}
-      end
-
-      def basenames(pathes)
+      def basenames pathes
         pathes && pathes.map{|p|File.basename(p)}
       end
 
-      def copy_files(pathes,dir)
+      def copy_files pathes, dir
         pathes.map do |p|
           FileUtils.cp p,dir
           File.join dir, File.basename(p)
         end
       end
 
-      def untmp_pathes(pathes)
+      def untmp_pathes pathes
         [pathes].flatten.map do |p|
           untmp = p.gsub(/\.tmp\Z/,'')
           tmp = untmp + '.tmp'
@@ -48,7 +50,7 @@ module Interfaces
         untmp_pathes tmps
       end
 
-      def dir_files(dir)
+      def dir_files dir
         Dir[File.join(dir, '*')].select do |path|
           name = File.basename path
           name !~ /\A.*\.(tmp|TMP|temp|old|err|\$00)\Z/ and File.file?(path)

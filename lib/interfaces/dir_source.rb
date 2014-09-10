@@ -1,7 +1,7 @@
 module Interfaces
   class DirSource < Source
 
-    def do_get_files regexp
+    def do_get_files regexp, mark_done = nil
       get_local_files regexp
     end
 

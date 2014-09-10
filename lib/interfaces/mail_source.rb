@@ -18,7 +18,7 @@ module Interfaces
     attribute :subject
     validates_presence_of :host, :user, :password, :subject
 
-    def get_remote_files
+    def get_remote_files mark_done = nil
       imap = nil
       logger.debug{"#{self}: about to open imap"}
       Timeout::timeout(5) { imap = Net::IMAP.new(host,port||143) } && fetch(imap)
@@ -47,11 +47,11 @@ module Interfaces
         envelope = fetch_attr imap, seq, "ENVELOPE" 
         logger.info{"#{self}: fetching msg #{seq} from #{envelope.from.first.name}, subject: #{envelope.subject}"}
 
-        tmpfiles = fetch_part( imap, seq, msg ).flatten
+        tmpfiles = fetch_part(imap, seq, msg).flatten
         filenames = Utils.untmp_pathes tmpfiles
         logger.debug{"#{self}: fetched from msg #{seq} filenames: #{filenames.inspect} "}
 
-        mark_as_done imap, seq if mark_done #unless filenames.empty?
+        mark_done imap, seq, mark_done 
       end
     end
 
@@ -70,7 +70,7 @@ module Interfaces
     end
 
     # returns tmp file
-    def fetch_file( imap, seq, part, i )
+    def fetch_file imap, seq, part, i
       filename = part.param['NAME']
       logger.debug{"#{self}: checking filename #{filename}. matches?=#{matches?(filename)}"}
       return [] unless matches? filename
@@ -91,10 +91,12 @@ module Interfaces
       imap.fetch(seq, [key]).first.attr[key]
     end
 
-    def mark_as_done imap, seq
-      imap.copy seq, "INBOX.processed"
-      imap.store seq, "+FLAGS", [:Deleted]
-      logger.debug{"#{self}: moved msg #{seq} to processed"}
+    def mark_done imap, seq, mark_done = nil
+      if mark_done
+        imap.copy seq, "INBOX.processed"
+        imap.store seq, "+FLAGS", [:Deleted]
+        logger.debug{"#{self}: moved msg #{seq} to processed"}
+      end
     end
 
   end

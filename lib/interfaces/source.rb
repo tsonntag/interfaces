@@ -8,18 +8,15 @@ module Interfaces
   # Required parameters are:
   # * :dir     path of local directory
   #
-  # * :mark_done      true if files should be marked as done. To be used by subclasses
-  #   
   # By default files ending with .err, .old, .tmp are omitted
   class Source < Base
 
     attribute :dir
-    attribute :mark_done, default: true
     validates_presence_of :dir
 
-    def get_files regexp 
+    def get_files regexp, mark_done = nil
       logger.debug{"#{self}: about to get files #{regexp}"}
-      pathes = do_get_files regexp
+      pathes = do_get_files regex, mark_done
       files = Utils.basenames pathes
       logger.info{"#{self}: got #{files.size} files #{files.inspect}"} if files.size > 0
       pathes

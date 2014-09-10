@@ -6,8 +6,8 @@ module Interfaces
   # which must copy remote files to _dir_
   class RemoteSource < Source
 
-    def do_get_files regexp
-      get_remote_files regexp
+    def do_get_files regexp, mark_done = nil
+      get_remote_files regexp, mark_done
       get_local_files regexp
     end
 
