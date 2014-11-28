@@ -2,7 +2,7 @@ module Interfaces
   # Base class for sinks.
   # Subclasses must implement #do_put_files(pathes)
   class Sink < Base
-    attribute :tmp_suffix, default: '.tmp'
+    attribute :tmp, default: '.tmp'
 
     # returns target_pathes
     def put_files pathes
