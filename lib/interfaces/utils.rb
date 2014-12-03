@@ -13,7 +13,7 @@ module Interfaces
         [pathes].flatten.each{|p|FileUtils.rm(p)}
       end
 
-      def move_to suffix, pathes
+      def append_suffix suffix, pathes
         [pathes].flatten.each{|p|FileUtils.mv(p,"#{p}#{suffix}")}
       end
 

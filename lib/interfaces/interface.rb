@@ -28,7 +28,7 @@ module Interfaces
 
     attr_reader :name, :source, :filters, :sink, :regexp, :log, :log_file, :logger
     attr_reader :retries, :retry_delay, :timeout_secs
-    attr_reader :auto, :collect, :mark_done
+    attr_reader :auto, :collect, :mark_done, :local_mark_done
 
     # Creates and interface with given _name_ from _source_, _filters_ and _sink_
     #
@@ -65,6 +65,7 @@ module Interfaces
       options = options.dup
       @name = name
       @mark_done = options.delete(:mark_done){'.old'}
+      @local_mark_done = options.delete(:local_mark_done){'.old'}
       Utils.validate_mark_done @mark_done 
       @collect = options.delete(:collect){1}
       @auto = options.delete(:auto){false}
@@ -215,7 +216,7 @@ module Interfaces
     def success! source_pathes, target_pathes, sink_pathes
       return if source_pathes.empty?
       log.log(name, source_pathes, target_pathes) if log
-      mark_done! source_pathes
+      local_mark_done! source_pathes
       notify SuccessEvent.new(self, source_pathes, target_pathes, sink_pathes)
     end
 
@@ -223,19 +224,18 @@ module Interfaces
       msg = Utils.exception_to_s exception
       if source_pathes && !source_pathes.empty?
         logger.error{"#{Utils.basenames(source_pathes).inspect} failed. moving files to err. #{msg}"}
-        Utils.move_to '.err', source_pathes
+        Utils.append_suffix '.err', source_pathes
       else
         logger.error{"failed: #{msg}"}
       end
       notify ErrorEvent.new(self, source_pathes, msg)
     end
 
-    def mark_done! source_pathes
-      source.mark_done! mark_done
+    def local_mark_done! source_pathes
       if sink.is_a?(DirSink) && sink.dir == source.dir
-        case mark_done
+        case local_mark_done
         when String 
-          Utils.move_to(mark_done, source_pathes) 
+          Utils.append_suffix(local_mark_done, source_pathes) 
         when :delete
           Utils.delete_files!(source_pathes)
         end

@@ -16,7 +16,7 @@ module Interfaces
 
     def get_files regexp, mark_done = nil
       logger.debug{"#{self}: about to get files #{regexp}"}
-      pathes = do_get_files regex, mark_done
+      pathes = do_get_files regexp, mark_done
       files = Utils.basenames pathes
       logger.info{"#{self}: got #{files.size} files #{files.inspect}"} if files.size > 0
       pathes
