@@ -4,7 +4,7 @@ module Interfaces
   module Utils
     class << self
       def validate_mark_done mark_done
-        unless String === mark_done || :delete == mark_done || nil == mark_done || false == mark_done
+        unless ( String === mark_done && !mark_done.empty? ) || :delete == mark_done || nil == mark_done || false == mark_done
           raise Exception "invalid mark_done #{mark_done}"
         end
       end

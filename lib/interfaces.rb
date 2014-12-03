@@ -31,6 +31,7 @@ module Interfaces
   autoload :Source,             'interfaces/source'
   autoload :Utils ,             'interfaces/utils'
   autoload :UnzipFilter,        'interfaces/unzip_filter'
+  autoload :VERSION,            'interfaces/version'
   autoload :ZipFilter,          'interfaces/zip_filter'
   autoload :ZipEncryptFilter,   'interfaces/zip_encrypt_filter'
 end

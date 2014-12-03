@@ -14,9 +14,9 @@ module Interfaces
     attribute :dir
     validates_presence_of :dir
 
-    def get_files regexp, mark_done = nil
+    def get_files regexp
       logger.debug{"#{self}: about to get files #{regexp}"}
-      pathes = do_get_files regexp, mark_done
+      pathes = do_get_files regexp
       files = Utils.basenames pathes
       logger.info{"#{self}: got #{files.size} files #{files.inspect}"} if files.size > 0
       pathes

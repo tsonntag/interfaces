@@ -18,7 +18,7 @@ module Interfaces
     attribute :subject
     validates_presence_of :host, :user, :password, :subject
 
-    def get_remote_files mark_done = nil
+    def get_remote_files
       imap = nil
       logger.debug{"#{self}: about to open imap"}
       Timeout::timeout(5) { imap = Net::IMAP.new(host,port||143) } && fetch(imap)
@@ -51,7 +51,7 @@ module Interfaces
         filenames = Utils.untmp_pathes tmpfiles
         logger.debug{"#{self}: fetched from msg #{seq} filenames: #{filenames.inspect} "}
 
-        mark_done imap, seq, mark_done 
+        mark_done imap, seq, remote_mark_done 
       end
     end
 

@@ -3,7 +3,7 @@ module Interfaces
   class SftpSource < FtpSourceBase
     include SftpSession
 
-    def ftp_get_files sftp, regexp, mark_done = nil
+    def ftp_get_files sftp, regexp
       logger.debug{"#{self}: sftp: about to list entries in #{remote_dir}"}
       files = []
       sftp.dir.entries(remote_dir).each do |entry|
@@ -18,12 +18,12 @@ module Interfaces
       files.map do |filename, remote_path, tmp|
         logger.debug{"#{self}: sftp get: #{filename} => #{tmp}"}
         sftp.download! remote_path, tmp 
-        case mark_done
+        case remote_mark_done
         when String
-          logger.debug{"#{self}: sftp move to #{mark_done}: #{filename}"}
-          sftp.rename! remote_path, "#{remote_path}#{mark_done}"
+          logger.debug{"#{self}: sftp move remote file to #{remote_mark_done}: #{filename}"}
+          sftp.rename! remote_path, "#{remote_path}#{remote_mark_done}"
         when :delete
-          logger.debug{"#{self}: sftp remove #{filename}"}
+          logger.debug{"#{self}: sftp remove remote file #{filename}"}
           sftp.remove! remote_path
         end
         Utils.untmp_pathes tmp

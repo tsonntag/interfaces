@@ -6,8 +6,18 @@ module Interfaces
   # which must copy remote files to _dir_
   class RemoteSource < Source
 
-    def do_get_files regexp, mark_done = nil
-      get_remote_files regexp, mark_done
+    attribute :remote_mark_done, default: '.old'
+
+    validate do |source|
+      begin
+        Utils.validate_mark_done source.remote_mark_done
+      rescue Exception => e
+        source.errors.add :base, "invalid remote_mark_done #{source.remote_mark_done.inspect}"
+      end
+    end
+
+    def do_get_files regexp
+      get_remote_files regexp
       get_local_files regexp
     end
 

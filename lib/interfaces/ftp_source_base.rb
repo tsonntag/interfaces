@@ -13,10 +13,10 @@ module Interfaces
     attribute :host
     validates_presence_of :remote_dir, :host
 
-    def get_remote_files regexp, mark_done = nil
+    def get_remote_files regexp
       session do |session|
         logger.debug{"#{self}: about to *ftp get"}
-        files = ftp_get_files session, regexp, mark_done
+        files = ftp_get_files session, regexp
         logger.debug{"#{self}: *ftp got files #{files.inspect}"}
       end
     end
