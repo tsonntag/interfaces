@@ -1,8 +1,9 @@
 # Interfaces
 
-Defines _sources_, _sinks_ and _filters_ for file pathes
+API for fIle transfer with various protocols (cp/mv, ftp, sftp, SMTP, IMAP).
+Defines _sources_, _sinks_ and _filters_ for file pathes.
 
-Pathes may be 'generated' by a _source_,
+Pathes may be retrievde from a _source_,
 may be filtered through a _filter_
 and may be put to a _sink_
 
