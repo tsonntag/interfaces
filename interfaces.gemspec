@@ -14,9 +14,9 @@ Gem::Specification.new do |gem|
   gem.name            = "interfaces"
   gem.require_paths   = ["lib"]
   gem.version         = Interfaces::VERSION
-  gem.add_dependency  'activesupport'
-  gem.add_dependency  'activemodel'
-  gem.add_dependency  'active_attr'
-  gem.add_dependency  'net-sftp'
-  gem.add_dependency  'zip'
+  gem.add_dependency  'activesupport', '~> 5'
+  gem.add_dependency  'activemodel', '~> 5'
+  gem.add_dependency  'active_attr', '~> 0.11'
+  gem.add_dependency  'net-sftp', '~> 2.1'
+  gem.add_dependency  'rubyzip', '~> 1.0'
 end
