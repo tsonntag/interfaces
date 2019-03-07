@@ -15,6 +15,8 @@ module Interfaces
   autoload :FtpSinkBase,        'interfaces/ftp_sink_base'
   autoload :FtpSource,          'interfaces/ftp_source'
   autoload :FtpSourceBase,      'interfaces/ftp_source_base'
+  autoload :GunzipFilter,       'interfaces/gunzip_filter'
+  autoload :GzipFilter,         'interfaces/gzip_filter'
   autoload :Interface,          'interfaces/interface'
   autoload :Log,                'interfaces/log'
   autoload :MailReceiver,       'interfaces/mail_receiver'
