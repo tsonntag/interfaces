@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency  'active_attr', '~> 0.11'
   gem.add_dependency  'net-sftp', '~> 2.1'
   gem.add_dependency  'rubyzip', '~> 1.0'
+  gem.add_dependency  'zip-zip'
 end

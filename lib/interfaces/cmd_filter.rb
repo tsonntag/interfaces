@@ -5,7 +5,7 @@ module Interfaces
   class CmdFilter < Filter
 
     validate do |filter|
-      begin 
+      begin
         filter.cmd('test')
       rescue Exception => e
         filter.errors.add :base, "#{self}: invalid cmd. #{e}"

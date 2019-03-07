@@ -201,9 +201,9 @@ module Interfaces
           # put remaining files to sink
           target_pathes = Utils.dir_files tmp_dir
           raise InterfaceError, "process_auto: no files remaining" if target_pathes.empty?
-          
+
           notify AfterFiltersEvent.new( self, target_pathes )
-          
+
           logger.debug{"auto process: putting #{target_pathes.inspect} to #{sink}"}
           sink_pathes = sink.put_files target_pathes
         end

@@ -1,4 +1,4 @@
-require 'zip/zip'
+require 'zip'
 
 module Interfaces
   class ZipFilter < Filter
@@ -17,6 +17,5 @@ module Interfaces
       logger.info{"#{self}: zipped #{Utils.basenames(pathes).join(',')} => #{zip_filename}"}
       [target_path]
     end
-  
   end
 end
