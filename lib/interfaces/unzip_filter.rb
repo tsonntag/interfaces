@@ -10,7 +10,7 @@ module Interfaces
     def do_filter_file path
       logger.debug{"#{self}: about to unzip #{path}"}
       dir = File.dirname path
-      Zip::ZipFile.new(path).each do |entry|
+      Zip::File.new(path).each do |entry|
         entry.extract File.join(dir,entry.name)
         logger.info{"#{self}: extracted #{entry.name} from zip file #{File.basename(path)}"}
       end
