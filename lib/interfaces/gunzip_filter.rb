@@ -1,6 +1,6 @@
 module Interfaces
 
-  class Gunzip < CmdFilter
+  class GunzipFilter < CmdFilter
     attribute :gunzip_cmd
     validates_presence_of :gunzip_cmd
 
