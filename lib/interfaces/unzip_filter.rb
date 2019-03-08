@@ -18,7 +18,7 @@ module Interfaces
 
     def target_pathes path
       dir = File.dirname path
-      Zip::ZipFile.new(path).map{|entry| File.join(dir,entry.name)}
+      Zip::File.new(path).map{|entry| File.join(dir,entry.name)}
     end
   end
 end
