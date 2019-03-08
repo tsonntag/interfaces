@@ -11,7 +11,7 @@ module Interfaces
     end
 
     def cmd path
-      "gunzip #{path}"
+      "gunzip -c #{path} > #{target_pathes path}"
     end
   end
 

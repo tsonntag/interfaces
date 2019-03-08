@@ -7,7 +7,7 @@ module Interfaces
     end
 
     def cmd path
-      "gzip #{path}"
+      "gzip -c #{path} > #{target_pathes path}"
     end
   end
 end
