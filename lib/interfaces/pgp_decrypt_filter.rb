@@ -5,11 +5,11 @@ module Interfaces
     validates_presence_of :pgp_decrypt_cmd
 
     def available_files dir
-      Dir.glob File.join(dir,'*.{pgp,asc,gpg}')
+      Dir.glob File.join(dir,'*.{pgp,PGP,asc,ASC,gpg,GPG}')
     end
 
     def target_pathes path
-      path.gsub /\.(pgp|asc|gpg)$/, ''
+      path.gsub /\.(pgp|PGP|asc|ASC|gpg|GPG)$/, ''
     end
 
     def cmd path
